@@ -1,0 +1,21 @@
+# Local environment files
+.env
+.env.*
+
+# Uploaded profile photos
+uploads/profiles/*
+!uploads/profiles/.gitkeep
+
+# Logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local database configuration
+config/config.php
