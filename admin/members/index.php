@@ -155,14 +155,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/assets/css/style.css">
     <style>
         body { background: #f4f7fb; min-height: 100vh; }
-        .sidebar { background: #0f172a; min-height: 100vh; color: #fff; }
-        .sidebar .nav-link { color: rgba(255,255,255,0.8); border-radius: 10px; padding: 0.7rem 1rem; margin-bottom: 0.35rem; }
-        .sidebar .nav-link.active, .sidebar .nav-link:hover { background: rgba(255,255,255,0.08); color: #fff; }
-        .dashboard-card { border: 1px solid #e5e7eb; border-radius: 18px; background: #fff; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04); }
     </style>
 </head>
 <body>
-    <div class="container-fluid p-0">
+    <div class="container-fluid p-0 page-shell">
         <div class="row g-0">
             <aside class="col-lg-2 sidebar p-3">
                 <div class="d-flex align-items-center mb-4">
@@ -174,24 +170,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <nav class="nav flex-column">
                     <a class="nav-link" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/dashboard.php">Dashboard</a>
                     <a class="nav-link active" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/members/index.php">Members</a>
-                    <a class="nav-link disabled" href="#">Trainers</a>
+                    <a class="nav-link" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/trainers/index.php">Trainers</a>
                     <a class="nav-link disabled" href="#">Membership Plans</a>
                     <a class="nav-link disabled" href="#">Memberships</a>
                     <a class="nav-link disabled" href="#">Payments</a>
                     <a class="nav-link disabled" href="#">Attendance</a>
+                    <a class="nav-link disabled" href="#">Workout Plans</a>
+                    <a class="nav-link disabled" href="#">Progress</a>
+                    <a class="nav-link disabled" href="#">Reports</a>
+                    <a class="nav-link disabled" href="#">Settings</a>
                 </nav>
             </aside>
             <main class="col-lg-10 px-4 py-4">
-                <div class="dashboard-card p-4 mb-4">
-                    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3">
-                        <div>
-                            <div class="text-muted small text-uppercase fw-semibold">Admin Panel</div>
-                            <h3 class="mb-0">Members Management</h3>
-                        </div>
-                        <div class="d-flex align-items-center gap-2">
-                            <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/dashboard.php" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
-                            <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/members/create.php" class="btn btn-primary btn-sm">Add Member</a>
-                        </div>
+                <div class="page-topbar">
+                    <div>
+                        <span class="page-kicker">Admin Panel</span>
+                        <h3 class="page-title">Members Management</h3>
+                    </div>
+                    <div class="page-actions">
+                        <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/dashboard.php" class="btn btn-outline-secondary btn-sm">Back to Dashboard</a>
+                        <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/members/create.php" class="btn btn-primary btn-sm">Add Member</a>
                     </div>
                 </div>
 
@@ -202,7 +200,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="alert alert-danger" role="alert"><?php echo htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8'); ?></div>
                 <?php endif; ?>
 
-                <div class="dashboard-card p-4 mb-4">
+                <div class="filter-panel">
                     <form method="get" class="row g-3 align-items-end">
                         <div class="col-md-10">
                             <label for="memberSearch" class="form-label">Search members</label>
@@ -214,17 +212,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                 </div>
 
-                <div class="dashboard-card p-0 overflow-hidden">
+                <div class="table-panel">
                     <?php if (empty($members)): ?>
-                        <div class="p-5 text-center text-muted">
-                            <h5 class="mb-2">No members found</h5>
-                            <p class="mb-3">Add your first member to start managing gym records.</p>
+                        <div class="empty-state">
+                            <h5>No members found</h5>
+                            <p class="text-muted mb-3">Add your first member to start managing gym records.</p>
                             <a href="create.php" class="btn btn-primary">Add Member</a>
                         </div>
                     <?php else: ?>
                         <div class="table-responsive">
                             <table class="table table-hover align-middle mb-0">
-                                <thead class="table-light">
+                                <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
@@ -246,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                             <td><?php echo htmlspecialchars((string) ($member['gender'] ?? 'N/A'), ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td><?php echo htmlspecialchars((string) ($member['join_date'] ? date('d M Y', strtotime((string) $member['join_date'])) : 'N/A'), ENT_QUOTES, 'UTF-8'); ?></td>
                                             <td>
-                                                <span class="badge bg-<?php echo ($member['status'] ?? 'inactive') === 'active' ? 'success' : 'secondary'; ?> rounded-pill">
+                                                <span class="status-badge <?php echo ($member['status'] ?? 'inactive') === 'active' ? 'success' : 'secondary'; ?>">
                                                     <?php echo htmlspecialchars((string) ($member['status'] ?? 'N/A'), ENT_QUOTES, 'UTF-8'); ?>
                                                 </span>
                                             </td>

@@ -150,18 +150,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link rel="stylesheet" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/assets/css/style.css">
     <style>
         body { background: #f4f7fb; min-height: 100vh; }
-        .dashboard-card { border: 1px solid #e5e7eb; border-radius: 18px; background: #fff; box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04); }
     </style>
 </head>
 <body>
-    <div class="container py-5">
-        <div class="dashboard-card p-4 p-lg-5 mx-auto" style="max-width: 980px;">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 mb-4">
+    <div class="container py-5 page-shell">
+        <div class="form-panel">
+            <div class="page-topbar mb-4">
                 <div>
-                    <div class="text-muted small text-uppercase fw-semibold">Admin Panel</div>
-                    <h3 class="mb-0">Edit Trainer</h3>
+                    <span class="page-kicker">Admin Panel</span>
+                    <h3 class="page-title">Edit Trainer</h3>
                 </div>
-                <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/trainers/index.php" class="btn btn-outline-secondary btn-sm">Back to Trainers</a>
+                <div class="page-actions">
+                    <a href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/trainers/index.php" class="btn btn-outline-secondary btn-sm">Back to Trainers</a>
+                </div>
             </div>
 
             <?php if (!empty($errors)): ?>
@@ -176,33 +177,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <form method="post" novalidate>
                 <?php echo csrfField(); ?>
-                <div class="row g-3">
-                    <div class="col-md-6">
+                <div class="form-grid">
+                    <div>
                         <label class="form-label">Full Name *</label>
                         <input type="text" class="form-control" name="full_name" value="<?php echo htmlspecialchars($formData['full_name'], ENT_QUOTES, 'UTF-8'); ?>" maxlength="150" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label class="form-label">Email *</label>
                         <input type="email" class="form-control" name="email" value="<?php echo htmlspecialchars($formData['email'], ENT_QUOTES, 'UTF-8'); ?>" maxlength="150" required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label class="form-label">Phone</label>
                         <input type="text" class="form-control" name="phone" value="<?php echo htmlspecialchars($formData['phone'], ENT_QUOTES, 'UTF-8'); ?>" maxlength="20">
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label class="form-label">Specialization</label>
                         <input type="text" class="form-control" name="specialization" value="<?php echo htmlspecialchars($formData['specialization'], ENT_QUOTES, 'UTF-8'); ?>" maxlength="255">
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label class="form-label">Experience (Years)</label>
                         <input type="number" class="form-control" name="experience_years" min="0" max="80" value="<?php echo htmlspecialchars($formData['experience_years'], ENT_QUOTES, 'UTF-8'); ?>">
                     </div>
 
-                    <div class="col-md-6">
+                    <div>
                         <label class="form-label">Status</label>
                         <select class="form-select" name="status">
                             <option value="active" <?php echo $formData['status'] === 'active' ? 'selected' : ''; ?>>Active</option>
@@ -210,17 +211,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </select>
                     </div>
 
-                    <div class="col-12">
+                    <div class="full-span">
                         <label class="form-label">Certifications</label>
                         <textarea class="form-control" name="certifications" rows="3" placeholder="List certifications or qualifications"><?php echo htmlspecialchars($formData['certifications'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                     </div>
 
-                    <div class="col-12">
+                    <div class="full-span">
                         <label class="form-label">Bio</label>
                         <textarea class="form-control" name="bio" rows="4" placeholder="Short trainer bio"><?php echo htmlspecialchars($formData['bio'], ENT_QUOTES, 'UTF-8'); ?></textarea>
                     </div>
 
-                    <div class="col-12 mt-4 d-flex gap-2">
+                    <div class="full-span form-actions">
                         <button type="submit" class="btn btn-primary">Update Trainer</button>
                         <a href="index.php" class="btn btn-outline-secondary">Cancel</a>
                     </div>
