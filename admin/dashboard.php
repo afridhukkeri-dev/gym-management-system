@@ -140,7 +140,7 @@ try {
                 <nav class="nav flex-column">
                     <a class="nav-link active" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/dashboard.php">Dashboard</a>
                     <a class="nav-link" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/members/index.php">Members</a>
-                    <a class="nav-link disabled" href="#">Trainers</a>
+                    <a class="nav-link" href="<?php echo htmlspecialchars(BASE_URL, ENT_QUOTES, 'UTF-8'); ?>/admin/trainers/index.php">Trainers</a>
                     <a class="nav-link disabled" href="#">Membership Plans</a>
                     <a class="nav-link disabled" href="#">Memberships</a>
                     <a class="nav-link disabled" href="#">Payments</a>
